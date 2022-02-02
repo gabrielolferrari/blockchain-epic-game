@@ -5,7 +5,36 @@ pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 
 contract MyEpicGame {
-    constructor() {
-        console.log("THIS IS MY EPIC GAME CONTRACT. NICE!");
+
+    struct CharacterAttributes {
+        uint characterIndex;
+        string name;
+        string imageURI;
+        uint hp;
+        uint maxHp;
+        uint attackDamage;
+    }
+
+    CharacterAttributes[] defaultCharacters;
+
+    constructor(
+        string[] memory characterNames,
+        string[] memory characterImageURI,
+        uint[] memory characterHp,
+        uint[] memory characterAttackDmg
+    ) {
+        for(uint i; i < characterNames.length; i += 1) {
+            defaultCharacters.push(CharacterAttributes({
+                characterIndex: i,
+                name: characterNames[i],
+                imageURI: characterImageURI[i],
+                hp: characterHp[i],
+                maxHp: characterHp[i],
+                attackDamage: characterAttackDmg[i]
+            }));
+
+            CharacterAttributes memory character = defaultCharacters[i];
+            console.log("Done initializing %s w/ HP %s, img %s", character.name, character.hp, character.imageURI);
+        }
     }
 }
